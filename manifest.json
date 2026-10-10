@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "ExamGuard - Google Forms Exam Lockdown",
+  "version": "1.2.0",
+  "description": "Keeps students inside their Google Form during an exam. Detects and blocks new tabs, windows, site changes and focus loss, with warnings and a lock. Logs the sites opened during the exam to the teacher's private Google Sheet.",
+  "permissions": ["tabs", "storage", "identity", "identity.email", "nativeMessaging"],
+  "host_permissions": [
+    "https://docs.google.com/forms/*",
+    "https://script.google.com/*",
+    "https://script.googleusercontent.com/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://docs.google.com/forms/*",
+        "https://docs.google.com/u/*/forms/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_title": "ExamGuard",
+    "default_popup": "popup.html"
+  }
+}
